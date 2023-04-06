@@ -1,7 +1,7 @@
 import sade from 'sade';
-import { version } from '../package.json';
 import { getConfig, setConfig } from './utils/config';
 import { prompt } from './prompt';
+import { version } from './utils/constants';
 
 const prog = sade('clai').version(version);
 
