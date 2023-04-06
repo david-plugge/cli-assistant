@@ -1,10 +1,10 @@
-# CliAssistant
+# Cli Assistant
 
 A CLI that converts natural language into shell commands.
 
 ## Setup
 
-1. Install CliAssistant:
+1. Install `Cli Assistant`:
 
 ```sh
 npm install -g cli-assistant
