@@ -1,7 +1,7 @@
 import { defineConfig } from 'tsup';
 
 export default defineConfig({
-    entry: ['src/smartcli.ts', 'src/ai.ts'],
+    entry: ['src/cli.ts'],
     format: ['esm'],
     dts: false,
     clean: true,

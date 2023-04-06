@@ -1,18 +1,18 @@
 {
-    "name": "smartcli",
+    "name": "supacli",
     "version": "0.0.1",
     "description": "ai powered shell",
     "type": "module",
     "repository": {
-        "url": "https://github.com/david-plugge/smartcli",
+        "url": "https://github.com/david-plugge/supacli",
         "type": "git"
     },
     "files": [
         "dist"
     ],
     "bin": {
-        "smartcli": "dist/smartcli.js",
-        "ai": "dist/ai.js"
+        "supacli": "dist/cli.js",
+        "ai": "dist/cli.js"
     },
     "scripts": {
         "dev": "tsup --watch",
