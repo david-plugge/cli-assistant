@@ -1,18 +1,18 @@
 {
-    "name": "supacli",
+    "name": "cli-assistant",
     "version": "0.0.1",
     "description": "ai powered shell",
     "type": "module",
     "repository": {
-        "url": "https://github.com/david-plugge/supacli",
+        "url": "https://github.com/david-plugge/cli-assistant",
         "type": "git"
     },
     "files": [
         "dist"
     ],
     "bin": {
-        "supacli": "dist/cli.js",
-        "ai": "dist/cli.js"
+        "cli-assistant": "dist/cli.js",
+        "ca": "dist/cli.js"
     },
     "scripts": {
         "dev": "tsup --watch",
