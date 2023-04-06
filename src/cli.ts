@@ -1,9 +1,9 @@
 import sade from 'sade';
 import { getConfig, setConfig } from './utils/config';
 import { prompt } from './prompt';
-import { commandName, version } from './utils/constants';
+import { pkgName, version } from './utils/constants';
 
-const prog = sade(commandName).version(version);
+const prog = sade(pkgName).version(version);
 
 prog.command('prompt', 'Generate a cli command with natural language', {
     default: true,

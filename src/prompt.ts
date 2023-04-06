@@ -1,7 +1,7 @@
 import * as p from '@clack/prompts';
 import { bgCyan, black } from 'kleur/colors';
 import { ClaiConfig, getConfig } from './utils/config';
-import { commandName } from './utils/constants';
+import { pkgName } from './utils/constants';
 import { getExplanation, getRevision, getScript } from './utils/completion';
 import { execSync } from 'child_process';
 
@@ -10,7 +10,7 @@ export async function prompt(prompt: string) {
 
     prompt ||= await getPrompt();
 
-    p.intro(`${bgCyan(black(` ${commandName} `))}`);
+    p.intro(`${bgCyan(black(` ${pkgName} `))}`);
 
     p.log.step('Your script:');
     let script = await getScript({

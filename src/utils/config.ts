@@ -5,8 +5,9 @@ import fs from 'fs/promises';
 import { z } from 'zod';
 import { PathLike } from 'fs';
 import merge from 'deepmerge';
+import { pkgName } from './constants';
 
-const configPath = path.join(homedir(), '.clai');
+const configPath = path.join(homedir(), `.${pkgName}`);
 
 const configSchema = z.object({
     OPENAI_KEY: z

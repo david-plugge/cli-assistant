@@ -1,9 +1,9 @@
-import { OpenAIApi, Configuration, CreateChatCompletionResponse } from 'openai';
+import { OpenAIApi, Configuration } from 'openai';
 import dedent from 'dedent';
 import { platform } from 'os';
 import { KnownError } from './errors';
 import { ClaiConfig } from './config';
-import { ClientRequest, IncomingMessage } from 'http';
+import { IncomingMessage } from 'http';
 import { CreateChatCompletionStreamResponse } from './openaiStreams';
 
 const explainInSecondRequest = true;
