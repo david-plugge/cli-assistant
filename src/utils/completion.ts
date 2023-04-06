@@ -13,7 +13,7 @@ function getOpenAi(apiKey: string) {
     return openai;
 }
 
-export async function getScriptAndInfo({
+export async function getScript({
     prompt,
     config,
 }: {
@@ -21,14 +21,12 @@ export async function getScriptAndInfo({
     config: ClaiConfig;
 }) {
     const fullPrompt = getFullPrompt(prompt);
-    const message = await generateCompletion({
+    const script = await generateCompletion({
         prompt: fullPrompt,
         number: 1,
         config,
     });
-    const script = message.split('```')[1].trim();
-    const info = message.split('```')[2].trim() as string | undefined;
-    return { script, info };
+    return script;
 }
 
 export async function generateCompletion({
@@ -160,7 +158,7 @@ const platformShells: Partial<Record<NodeJS.Platform, string>> = {
 const shell = platformShells[platform()] ?? platformShells['linux'];
 
 const generationDetails = dedent`
-    Please only reply with the single line ${shell} command surrounded by 3 backticks. It should be able to be directly run in a ${shell} terminal. Do not include any other text.
+    Please only reply with the single line ${shell} command. It should be able to be directly run in a ${shell} terminal. Do not include any other text.
 `;
 
 function getFullPrompt(prompt: string) {

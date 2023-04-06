@@ -2,11 +2,7 @@ import * as p from '@clack/prompts';
 import { bgCyan, black } from 'kleur/colors';
 import { ClaiConfig, getConfig } from './utils/config';
 import { commandName } from './utils/constants';
-import {
-    getExplanation,
-    getRevision,
-    getScriptAndInfo,
-} from './utils/completion';
+import { getExplanation, getRevision, getScript } from './utils/completion';
 import { execSync } from 'child_process';
 
 export async function prompt(prompt: string) {
@@ -17,18 +13,10 @@ export async function prompt(prompt: string) {
     p.intro(`${bgCyan(black(` ${commandName} `))}`);
 
     p.log.step('Your script:');
-    let { script, info } = await getScriptAndInfo({
+    let script = await getScript({
         config,
         prompt,
     });
-
-    if (!info) {
-        p.log.step('Explanation:');
-        info = await getExplanation({
-            config,
-            script,
-        });
-    }
 
     await runOrReviseFlow(script, config);
 }
@@ -87,6 +75,11 @@ async function runOrReviseFlow(script: string, config: ClaiConfig) {
         options: [
             { label: 'Yes', value: 'yes', hint: 'Lets go!' },
             {
+                label: 'Explain',
+                value: 'explain',
+                hint: 'Let me eplain the script',
+            },
+            {
                 label: 'Revise',
                 value: 'revise',
                 hint: 'Add some feedback and get a new result',
@@ -101,6 +94,13 @@ async function runOrReviseFlow(script: string, config: ClaiConfig) {
         p.outro(`Running: ${script}`);
         console.log('');
         execSync(script, { stdio: 'inherit' });
+    } else if (answer === 'explain') {
+        p.log.step('Explanation:');
+        await getExplanation({
+            script,
+            config,
+        });
+        await runOrReviseFlow(script, config);
     } else {
         p.cancel('Goodbye!');
         process.exit(0);
