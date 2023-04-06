@@ -12,12 +12,12 @@ const configPath = path.join(homedir(), `.${pkgName}`);
 const configSchema = z.object({
     OPENAI_KEY: z
         .string({
-            required_error:
-                'Please set your OpenAI API key via `clai config set OPENAI_KEY your-token`',
+            required_error: `Please set your OpenAI API key via "${pkgName} config set OPENAI_KEY your-token"`,
         })
         .refine((key) => key.startsWith('sk-'), 'Must start with "sk-"'),
     model: z.string().default('gpt-3.5-turbo'),
 });
+
 export type ClaiConfig = z.infer<typeof configSchema>;
 
 const fileExists = (fp: PathLike) =>

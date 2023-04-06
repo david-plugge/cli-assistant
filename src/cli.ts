@@ -2,6 +2,7 @@ import sade from 'sade';
 import { getConfig, setConfig } from './utils/config';
 import { prompt } from './prompt';
 import { pkgName, version } from './utils/constants';
+import { handleCliError } from './utils/errors';
 
 const prog = sade(pkgName).version(version);
 
@@ -27,4 +28,8 @@ prog.command('config get <key>', 'Get a config value').action(async (key) => {
     console.log(config[key as keyof typeof config]);
 });
 
-prog.parse(process.argv);
+try {
+    await prog.parse(process.argv);
+} catch (error) {
+    handleCliError(error);
+}
