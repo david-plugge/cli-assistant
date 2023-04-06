@@ -65,7 +65,7 @@ export async function generateCompletion({
                 for (const payload of payloads) {
                     if (payload.includes('[DONE]')) {
                         streamedData += '\n';
-                        process.stdout.write(streamedData);
+                        process.stdout.write('\n');
                         return;
                     }
                     if (payload.startsWith('data:')) {
@@ -89,8 +89,6 @@ export async function generateCompletion({
             });
 
             stream.on('end', () => {
-                console.log({ final: streamedData.trim() });
-
                 res(streamedData.trim());
             });
             stream.on('error', (e) => rej(e));
@@ -149,9 +147,9 @@ function getExplanationPrompt(script: string) {
 }
 
 const explainBash = dedent`
-  Then please describe the bash script in plain english, step by step, what exactly it does.
-  Please describe succintly, use as few words as possible, do not be verbose. 
-  If there are multiple steps, please display them as a list.
+    Then please describe the bash script in plain english, step by step, what exactly it does.
+    Please describe succintly, use as few words as possible, do not be verbose. 
+    If there are multiple steps, please display them as a list.
 `;
 
 const platformShells: Partial<Record<NodeJS.Platform, string>> = {
@@ -162,7 +160,7 @@ const platformShells: Partial<Record<NodeJS.Platform, string>> = {
 const shell = platformShells[platform()] ?? platformShells['linux'];
 
 const generationDetails = dedent`
-  Please only reply with the single line ${shell} command surrounded by 3 backticks. It should be able to be directly run in a ${shell} terminal. Do not include any other text.
+    Please only reply with the single line ${shell} command surrounded by 3 backticks. It should be able to be directly run in a ${shell} terminal. Do not include any other text.
 `;
 
 function getFullPrompt(prompt: string) {

@@ -16,24 +16,19 @@ export async function prompt(prompt: string) {
 
     p.intro(`${bgCyan(black(` ${commandName} `))}`);
 
-    const spin = p.spinner();
-    // spin.start('Loading...');
+    p.log.step('Your script:');
     let { script, info } = await getScriptAndInfo({
         config,
         prompt,
     });
-    // spin.stop('Your script:');
-    // p.log.message(script);
 
     if (!info) {
-        // spin.start('Getting explanation...');
+        p.log.step('Explanation:');
         info = await getExplanation({
             config,
             script,
         });
-        // spin.stop('Explanation:');
     }
-    // p.log.message(info);
 
     await runOrReviseFlow(script, config);
 }
@@ -114,23 +109,19 @@ async function runOrReviseFlow(script: string, config: ClaiConfig) {
 
 async function revisionFlow(currentScript: string, config: ClaiConfig) {
     const revision = await promptForRevision();
-    const spin = p.spinner();
-    spin.start('Loading...');
+
+    p.log.step('Your script:');
     const script = await getRevision({
         prompt: revision,
         code: currentScript,
         config,
     });
-    spin.stop('Your new script:');
-    p.log.message(script);
 
-    spin.start('Getting explanation...');
+    p.log.step('Explanation:');
     const info = await getExplanation({
         script,
         config,
     });
-    spin.stop('Explanation:');
-    p.log.message(info);
 
     await runOrReviseFlow(script, config);
 }
